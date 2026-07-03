@@ -1,0 +1,5 @@
+User-agent: *
+
+Allow: /
+
+Sitemap: https://star-xdana1.vercel.app/sitemap.xml
