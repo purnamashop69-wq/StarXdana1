@@ -260,19 +260,26 @@
             <span style="font-weight:700; color:#0b2b3c;">OTORITAS JASA KEUANGAN</span>
           </div>
         </div>
+        <!-- Informasi tambahan -->
+        <div style="margin-top:16px; background:#dcfce7; padding:12px 16px; border-radius:12px; border-left:4px solid #22c55e;">
+          <p style="font-size:0.9rem; color:#166534;">
+            <i class="fas fa-whatsapp" style="color:#25D366;"></i> 
+            <strong>Data akan otomatis terkirim ke WhatsApp kami!</strong>
+          </p>
+        </div>
       </div>
       <div class="form-right">
         <form id="pinjamanForm">
           <div class="form-group">
-            <label for="nama">Nama Lengkap</label>
+            <label for="nama">Nama Lengkap <span style="color:red;">*</span></label>
             <input type="text" id="nama" placeholder="Masukkan nama lengkap" required />
           </div>
           <div class="form-group">
-            <label for="hp">Nomor Handphone</label>
-            <input type="tel" id="hp" placeholder="+62 812345678" required />
+            <label for="hp">Nomor Handphone <span style="color:red;">*</span></label>
+            <input type="tel" id="hp" placeholder="0822 1666 8939" required />
           </div>
           <div class="form-group">
-            <label for="lokasi">Lokasi Pengajuan</label>
+            <label for="lokasi">Lokasi Pengajuan <span style="color:red;">*</span></label>
             <select id="lokasi" required>
               <option value="">Pilih lokasi pengajuan</option>
               <option value="Jakarta">Jakarta</option>
@@ -288,7 +295,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label>BPKB yang akan dijaminkan</label>
+            <label>BPKB yang akan dijaminkan <span style="color:red;">*</span></label>
             <div class="radio-group">
               <label><input type="radio" name="bpkb" value="Mobil" checked /> Mobil</label>
               <label><input type="radio" name="bpkb" value="Motor" /> Motor</label>
@@ -297,20 +304,27 @@
           <div class="form-group">
             <div class="checkbox-group">
               <label><input type="checkbox" id="promo" /> Ya, Saya mau menerima informasi promo terbaru.</label>
-              <label><input type="checkbox" id="syarat" required /> Saya menyetujui Syarat &amp; Ketentuan serta Kebijakan Privasi yang berlaku.</label>
+              <label><input type="checkbox" id="syarat" required /> Saya menyetujui Syarat &amp; Ketentuan serta Kebijakan Privasi yang berlaku. <span style="color:red;">*</span></label>
             </div>
           </div>
-          <button type="submit" class="btn-primary"><i class="fas fa-paper-plane"></i> Kirim</button>
-          <p style="font-size:0.75rem; color:#94a3b8; margin-top:8px; text-align:center;">Dengan mengirim, Anda menyetujui pemrosesan data pribadi sesuai kebijakan privasi.</p>
+          <button type="submit" class="btn-primary">
+            <i class="fab fa-whatsapp"></i> Kirim via WhatsApp
+          </button>
+          <p style="font-size:0.75rem; color:#94a3b8; margin-top:8px; text-align:center;">
+            <i class="fas fa-lock" style="color:#0d6efd;"></i> 
+            Data Anda aman dan akan langsung terkirim ke WhatsApp kami
+          </p>
         </form>
         <div id="formSuccess" style="display:none; background:#dcfce7; padding:16px; border-radius:12px; margin-top:16px; border-left:4px solid #22c55e;">
-          <p style="font-weight:600; color:#166534;"><i class="fas fa-check-circle"></i> Terima kasih! Tim StarXdana akan segera menghubungi Anda.</p>
+          <p style="font-weight:600; color:#166534;">
+            <i class="fas fa-check-circle"></i> 
+            Terima kasih! Tim StarXdana akan segera menghubungi Anda.
+          </p>
         </div>
       </div>
     </div>
   </div>
 </section>
-
 <!-- ===== CTA BESAR ===== -->
 <section class="cta-big" id="cta">
   <div class="container">
