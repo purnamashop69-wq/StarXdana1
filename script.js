@@ -88,8 +88,10 @@ faqItems.forEach(function(item) {
 });
 
 // ===== FORM SUBMIT KE WHATSAPP =====
+// ===== FORM SUBMIT KE WHATSAPP (DENGAN LOADING) =====
 const form = document.getElementById('pinjamanForm');
 const successDiv = document.getElementById('formSuccess');
+const submitBtn = form.querySelector('.btn-primary');
 
 if (form && successDiv) {
     form.addEventListener('submit', function(e) {
@@ -128,18 +130,28 @@ if (form && successDiv) {
             promo: promo
         };
         
+        // Tampilkan loading di tombol
+        submitBtn.classList.add('loading');
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+        submitBtn.disabled = true;
+        
         // Tampilkan pesan sukses
         successDiv.style.display = 'block';
         successDiv.innerHTML = `
             <p style="font-weight:600; color:#166534;">
-                <i class="fas fa-check-circle"></i> 
-                Terima kasih! Data Anda sedang dikirim ke WhatsApp...
+                <i class="fas fa-spinner fa-spin"></i> 
+                Mengirim data ke WhatsApp...
             </p>
         `;
         
-        // Kirim ke WhatsApp (delay 1 detik agar user melihat loading)
+        // Kirim ke WhatsApp (delay 1.5 detik agar user melihat loading)
         setTimeout(function() {
             sendFormToWhatsApp(formData);
+            
+            // Update tombol
+            submitBtn.classList.remove('loading');
+            submitBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Kirim via WhatsApp';
+            submitBtn.disabled = false;
             
             // Update pesan sukses
             successDiv.innerHTML = `
@@ -168,13 +180,12 @@ if (form && successDiv) {
                 `;
             }, 10000);
             
-        }, 1000);
+        }, 1500);
         
         // Scroll ke pesan sukses
         successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
 }
-
 // ===== TRACKING WHATSAPP CLICK =====
 document.querySelectorAll('[onclick*="openWhatsApp"]').forEach(function(link) {
     link.addEventListener('click', function() {
