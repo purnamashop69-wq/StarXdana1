@@ -21,6 +21,29 @@ function openWhatsApp(phoneNumber, message) {
     return false;
 }
 
+// ===== WHATSAPP FUNCTION DENGAN DATA FORM =====
+// Fungsi untuk mengirim data form ke WhatsApp
+function sendFormToWhatsApp(data) {
+    // Nomor WhatsApp tujuan
+    const phoneNumber = '082216668939';
+    
+    // Format pesan dengan data form
+    let message = '📋 *DATA PENGAJUAN PINJAMAN STARXDANA*%0A%0A';
+    message += '━━━━━━━━━━━━━━━━━━━━━%0A';
+    message += `📌 *Nama Lengkap*: ${data.nama}%0A`;
+    message += `📱 *No. Handphone*: ${data.hp}%0A`;
+    message += `📍 *Lokasi*: ${data.lokasi}%0A`;
+    message += `🚗 *Jenis BPKB*: ${data.bpkb}%0A`;
+    message += `📨 *Info Promo*: ${data.promo}%0A`;
+    message += '━━━━━━━━━━━━━━━━━━━━━%0A';
+    message += '%0A✅ *Terima kasih! Tim StarXdana akan segera menghubungi Anda.*%0A';
+    message += '%0A*⭐ StarXdana*%0A';
+    message += 'Solusi Pinjam Dana dengan Jaminan Kendaraan';
+    
+    // Buka WhatsApp dengan pesan yang sudah diformat
+    openWhatsApp(phoneNumber, message);
+}
+
 // ===== HAMBURGER TOGGLE =====
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
@@ -64,7 +87,7 @@ faqItems.forEach(function(item) {
     }
 });
 
-// ===== FORM SUBMIT =====
+// ===== FORM SUBMIT KE WHATSAPP =====
 const form = document.getElementById('pinjamanForm');
 const successDiv = document.getElementById('formSuccess');
 
@@ -72,28 +95,82 @@ if (form && successDiv) {
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
+        // Ambil data dari form
         const nama = document.getElementById('nama').value.trim();
         const hp = document.getElementById('hp').value.trim();
         const lokasi = document.getElementById('lokasi').value;
+        const bpkb = document.querySelector('input[name="bpkb"]:checked');
+        const promo = document.getElementById('promo').checked ? 'Ya' : 'Tidak';
         const syarat = document.getElementById('syarat').checked;
         
+        // Validasi
         if (!nama || !hp || !lokasi || !syarat) {
-            alert('Mohon lengkapi semua data yang wajib (Nama, HP, Lokasi, dan setujui Syarat & Ketentuan).');
+            alert('⚠️ Mohon lengkapi semua data yang wajib (Nama, HP, Lokasi, dan setujui Syarat & Ketentuan).');
             return;
         }
         
         if (hp.length < 8) {
-            alert('Nomor handphone tidak valid. Minimal 8 digit.');
+            alert('⚠️ Nomor handphone tidak valid. Minimal 8 digit.');
             return;
         }
         
+        if (!bpkb) {
+            alert('⚠️ Silakan pilih jenis BPKB (Mobil atau Motor).');
+            return;
+        }
+        
+        // Siapkan data untuk dikirim ke WhatsApp
+        const formData = {
+            nama: nama,
+            hp: hp,
+            lokasi: lokasi,
+            bpkb: bpkb.value,
+            promo: promo
+        };
+        
+        // Tampilkan pesan sukses
         successDiv.style.display = 'block';
-        form.reset();
+        successDiv.innerHTML = `
+            <p style="font-weight:600; color:#166534;">
+                <i class="fas fa-check-circle"></i> 
+                Terima kasih! Data Anda sedang dikirim ke WhatsApp...
+            </p>
+        `;
         
+        // Kirim ke WhatsApp (delay 1 detik agar user melihat loading)
         setTimeout(function() {
-            successDiv.style.display = 'none';
-        }, 6000);
+            sendFormToWhatsApp(formData);
+            
+            // Update pesan sukses
+            successDiv.innerHTML = `
+                <p style="font-weight:600; color:#166534;">
+                    <i class="fas fa-check-circle"></i> 
+                    ✅ Data berhasil dikirim! Tim StarXdana akan segera menghubungi Anda di WhatsApp.
+                </p>
+                <p style="font-size:0.9rem; color:#166534; margin-top:8px;">
+                    <i class="fas fa-whatsapp" style="color:#25D366;"></i> 
+                    Cek WhatsApp Anda untuk konfirmasi.
+                </p>
+            `;
+            
+            // Reset form
+            form.reset();
+            
+            // Sembunyikan pesan sukses setelah 10 detik
+            setTimeout(function() {
+                successDiv.style.display = 'none';
+                // Reset ke tampilan awal
+                successDiv.innerHTML = `
+                    <p style="font-weight:600; color:#166534;">
+                        <i class="fas fa-check-circle"></i> 
+                        Terima kasih! Tim StarXdana akan segera menghubungi Anda.
+                    </p>
+                `;
+            }, 10000);
+            
+        }, 1000);
         
+        // Scroll ke pesan sukses
         successDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
     });
 }
@@ -115,5 +192,6 @@ document.querySelectorAll('a[href^="tel:"]').forEach(function(link) {
     });
 });
 
-console.log('StarXdana - Website loaded successfully!');
-console.log('WhatsApp number: 082216668939');
+console.log('⭐ StarXdana - Website loaded successfully!');
+console.log('📱 WhatsApp number: 082216668939');
+console.log('📋 Form akan otomatis terkirim ke WhatsApp');
